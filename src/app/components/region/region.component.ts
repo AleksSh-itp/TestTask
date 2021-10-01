@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Toggler } from 'src/app/Helpers/toggler.helper';
+import { Toggler } from 'src/app/helpers/toggler.helper';
 import { Region } from 'src/app/models/interfaces/region.model';
 import { RegionTransfer } from 'src/app/models/types/region-transfer.type';
 import { CityService } from 'src/app/services/city.service';

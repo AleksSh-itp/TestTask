@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Toggler } from 'src/app/Helpers/toggler.helper';
+import { Toggler } from 'src/app/helpers/toggler.helper';
 import { FederalDistrictTransfer } from 'src/app/models/types/federal-district-transfer.type';
 import { FederalDistrictService } from 'src/app/services/federal-district.service';
 import { RegionService } from 'src/app/services/region.service';
