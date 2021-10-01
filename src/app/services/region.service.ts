@@ -9,24 +9,28 @@ export class RegionService {
   
   constructor() { 
     this._regions = [
-      { id: 1, name: 'Subject 1', federalDistrictId: 1},
-      { id: 2, name: 'Subject 2', federalDistrictId: 3},
-      { id: 3, name: 'Subject 3', federalDistrictId: 1},
-      { id: 4, name: 'Subject 4', federalDistrictId: 2},
-      { id: 5, name: 'Subject 5', federalDistrictId: 2},
-      { id: 6, name: 'Subject 6', federalDistrictId: 1},
-      { id: 7, name: 'Subject 7', federalDistrictId: 3},
-      { id: 8, name: 'Subject 8', federalDistrictId: 1},
-      { id: 9, name: 'Subject 9', federalDistrictId: 2},
-      { id: 10, name: 'Subject 10', federalDistrictId: 2},
+      { id: 1, name: 'Region 1', federalDistrictId: 1},
+      { id: 2, name: 'Region 2', federalDistrictId: 3},
+      { id: 3, name: 'Region 3', federalDistrictId: 1},
+      { id: 4, name: 'Region 4', federalDistrictId: 2},
+      { id: 5, name: 'Region 5', federalDistrictId: 2},
+      { id: 6, name: 'Region 6', federalDistrictId: 1},
+      { id: 7, name: 'Region 7', federalDistrictId: 3},
+      { id: 8, name: 'Region 8', federalDistrictId: 1},
+      { id: 9, name: 'Region 9', federalDistrictId: 2},
+      { id: 10, name: 'Region 10', federalDistrictId: 2},
     ]
   }
 
-  public getAllSubjects(): Region[] {
+  public getAllRegions(): Region[] {
     return this._regions
   }
 
-  public getSubjectsByFederalDistrictId(federalDistrictId: number): Region[] {
+  public getRegionById(id: number): Region {
+    return this._regions.find(region => region.id === id);
+  }
+
+  public getRegionsByFederalDistrictId(federalDistrictId: number): Region[] {
     return this._regions
       .filter(region => region.federalDistrictId === federalDistrictId)
   }

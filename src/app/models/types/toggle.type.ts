@@ -1,0 +1,1 @@
+export type Toggle = { itemId: number, state: boolean }

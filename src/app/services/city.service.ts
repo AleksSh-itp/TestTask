@@ -14,13 +14,17 @@ export class CityService {
       const regionId = Math.floor(Math.random() * 10);
 
       this._cities.push(
-        { id: i++, name: `City ${i++}`, regionId: regionId}
+        { id: i+1, name: `City ${i+1}`, regionId: regionId}
       )
     }
   }
 
   public getAllCities(): City[] {
     return this._cities;
+  }
+
+  public getCityById(id: number): City {
+    return this._cities.find(city => city.id === id);
   }
 
   public getAllCitiesByRegionId(regionId: number): City[] {

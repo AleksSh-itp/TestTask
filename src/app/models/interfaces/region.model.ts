@@ -4,5 +4,4 @@ export interface Region {
     id: number;
     name: string;
     federalDistrictId: number;
-    cities?: City[];
 }

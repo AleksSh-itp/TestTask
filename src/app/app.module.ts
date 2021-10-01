@@ -7,13 +7,17 @@ import { ListComponent } from './components/list/list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RecordComponent } from './components/record/record.component';
+import { FederalDistrictComponent } from './components/federal-district/federal-district.component';
+import { RegionComponent } from './components/region/region.component';
+import { CityComponent } from './components/city/city.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    RecordComponent,
+    FederalDistrictComponent,
+    RegionComponent,
+    CityComponent,
   ],
   imports: [
     CommonModule,

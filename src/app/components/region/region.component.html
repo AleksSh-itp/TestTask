@@ -1,0 +1,14 @@
+<ng-container *ngFor="let region of regions">
+    <div class="item">
+        <button (click)="loadCities(region.id); expand(region.id)">
+            +
+        </button>
+        <input type="checkbox" />
+        <span>{{ region.name }}</span>
+
+        <ng-container *ngIf="region.cities && getToggleState(region.id)">
+            <app-city [items]="region.cities">
+            </app-city>
+          </ng-container>
+    </div>
+</ng-container>

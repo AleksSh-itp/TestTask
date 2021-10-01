@@ -18,4 +18,9 @@ export class FederalDistrictService {
   public getAllFederalDistrics(): FederalDistrict[] {
     return this._federalDistrics;
   }
+
+  public getFederalDistricById(id: number): FederalDistrict {
+    return this._federalDistrics
+      .find(federalDistrics => federalDistrics.id === id);
+  }
 }
