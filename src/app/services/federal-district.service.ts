@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FederalDistrict } from '../models/federal-district.model';
+import { FederalDistrict } from '../models/interfaces/federal-district.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,9 @@ export class FederalDistrictService {
 
   constructor() { 
     this._federalDistrics = [
-      { id: 1, name: "Federal FederalDistrict 1" },
-      { id: 2, name: "Federal FederalDistrict 2" },
-      { id: 3, name: "Federal FederalDistrict 3" },
+      { id: 1, name: 'Federal district 1' },
+      { id: 2, name: 'Federal district 2' },
+      { id: 3, name: 'Federal district 3' },
     ]
   }
 

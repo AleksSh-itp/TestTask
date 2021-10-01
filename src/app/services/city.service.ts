@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { City } from '../models/city.model';
+import { City } from '../models/interfaces/city.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class CityService {
     this._cities = [];
 
     for (let i = 0; i < 30; i++) {
-      const subjectId = Math.floor(Math.random() * 10);
+      const regionId = Math.floor(Math.random() * 10);
 
       this._cities.push(
-        { id: i++, name: `City ${i++}`, subjectId: subjectId}
+        { id: i++, name: `City ${i++}`, regionId: regionId}
       )
     }
   }
@@ -23,8 +23,8 @@ export class CityService {
     return this._cities;
   }
 
-  public getAllCitiesBySubjectId(subjectId: number): City[] {
+  public getAllCitiesByRegionId(regionId: number): City[] {
     return this._cities
-      .filter(city => city.subjectId === subjectId);
+      .filter(city => city.regionId === regionId);
   }
 }
