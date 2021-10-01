@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.sass']
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
   public formGroup: FormGroup;
 
   constructor(
@@ -19,9 +19,6 @@ export class MainComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void { 
-  }
-
   get federalDistrictControl(): FormControl {
     return this.formGroup.get('federalDistrict') as FormControl;
   }
@@ -32,5 +29,9 @@ export class MainComponent implements OnInit {
 
   get cityControl(): FormControl {
     return this.formGroup.get('city') as FormControl;
+  }
+
+  public toggle(): void {
+
   }
 }

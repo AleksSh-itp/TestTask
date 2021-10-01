@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { InputComponent } from './components/input/input.component';
 import { MainComponent } from './components/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule } from '@angular/material/checkbox/'
-import { MatButtonModule } from '@angular/material/button'
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -21,12 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatCheckboxModule,
-    MatButtonModule,
   ],
-  providers: [
-    MatCheckboxModule
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
