@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Toggler } from 'src/app/helpers/toggler.helper';
 import { FederalDistrictTransfer } from 'src/app/models/types/federal-district-transfer.type';
 import { FederalDistrictService } from 'src/app/services/federal-district.service';
 import { RegionService } from 'src/app/services/region.service';
@@ -11,7 +10,6 @@ import { RegionService } from 'src/app/services/region.service';
 })
 export class FederalDistrictComponent implements OnInit {
   private _federalDistrictsTransfer: FederalDistrictTransfer[];
-  private _toggler: Toggler;
 
   get federalDistricts(): FederalDistrictTransfer[] {
     return this._federalDistrictsTransfer;
@@ -25,23 +23,36 @@ export class FederalDistrictComponent implements OnInit {
   public ngOnInit(): void {
     this._federalDistrictsTransfer = this._federalDistrictService
       .getAllFederalDistrics()
-      .map(district => ({ ...district, region: null }));
-
-    this._toggler = new Toggler(this._federalDistrictsTransfer);
+      .map(district => ({
+        ...district,
+        region: null,
+        toggled: false,
+        checked: false
+      }));
   }
 
   public loadRegion(districtId: number): void {
-    const regions = this._regionService.getRegionsByFederalDistrictId(districtId);
     const district = this._federalDistrictsTransfer.find(district => district.id === districtId);
-
-    district.regions = regions;
+    
+    if (district.regions == null) {
+      district.regions = this._regionService.getRegionsByFederalDistrictId(districtId)
+    }
+    
+    return;
   }
 
   public expand(districtId: number): void {
-    this._toggler.expand(districtId);
+    const district = this._federalDistrictsTransfer
+      .find(district => district.id === districtId);
+    district.toggled = !district.toggled;
   }
 
   public getToggleState(districtId: number): boolean {
-    return this._toggler.getToggleState(districtId);
+    return this._federalDistrictsTransfer
+      .find(district => district.id === districtId)?.toggled;
+  }
+
+  public check(districtId: number): void {
+
   }
 }

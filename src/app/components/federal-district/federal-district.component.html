@@ -3,7 +3,7 @@
     <button (click)="loadRegion(district.id); expand(district.id)">
       +
     </button>
-    <input type="checkbox" />
+    <input type="checkbox" (change)="check(district.id)"/>
     <span>{{ district.name }}</span>
 
     <ng-container *ngIf="district.regions && getToggleState(district.id)">

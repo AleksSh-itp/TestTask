@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Toggler } from 'src/app/helpers/toggler.helper';
 import { Region } from 'src/app/models/interfaces/region.model';
 import { RegionTransfer } from 'src/app/models/types/region-transfer.type';
 import { CityService } from 'src/app/services/city.service';
@@ -13,7 +12,6 @@ export class RegionComponent implements OnInit {
   @Input() items: Region[];
 
   private _regionsTransfer: RegionTransfer[];
-  private _toggler: Toggler;
 
   get regions(): RegionTransfer[] {
     return this._regionsTransfer;
@@ -25,24 +23,33 @@ export class RegionComponent implements OnInit {
 
   public ngOnInit(): void {
     this._regionsTransfer = this.items
-      .map(region => ({...region, cities: null}));
-
-    this._toggler = new Toggler(this._regionsTransfer);
+      .map(region => ({
+        ...region,
+        cities: null,
+        toggled: false,
+        checked: false
+      }));
   }
 
   public loadCities(regionId: number): void {
-    const cities = this._cityService.getAllCitiesByRegionId(regionId);
     const region = this._regionsTransfer.find(region => region.id === regionId);
 
-    region.cities = cities;
+    if (region.cities == null) {
+      region.cities = this._cityService.getAllCitiesByRegionId(regionId);
+    }
+
+    return;
   }
 
   public expand(regionId: number): void {
-    return this._toggler.expand(regionId);
+    const region = this._regionsTransfer
+      .find(region => region.id === regionId);
+    region.toggled = !region.toggled;
   }
 
   public getToggleState(regionId: number): boolean {
-    return this._toggler.getToggleState(regionId);
+    return this._regionsTransfer
+      .find(region => region.id === regionId).toggled;
   }
 
 }
