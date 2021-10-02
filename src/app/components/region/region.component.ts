@@ -37,8 +37,6 @@ export class RegionComponent implements OnInit {
     if (region.cities == null) {
       region.cities = this._cityService.getAllCitiesByRegionId(regionId);
     }
-
-    return;
   }
 
   public expand(regionId: number): void {

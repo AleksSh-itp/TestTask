@@ -33,12 +33,10 @@ export class FederalDistrictComponent implements OnInit {
 
   public loadRegion(districtId: number): void {
     const district = this._federalDistrictsTransfer.find(district => district.id === districtId);
-    
+
     if (district.regions == null) {
       district.regions = this._regionService.getRegionsByFederalDistrictId(districtId)
     }
-    
-    return;
   }
 
   public expand(districtId: number): void {
@@ -50,9 +48,5 @@ export class FederalDistrictComponent implements OnInit {
   public getToggleState(districtId: number): boolean {
     return this._federalDistrictsTransfer
       .find(district => district.id === districtId)?.toggled;
-  }
-
-  public check(districtId: number): void {
-
   }
 }
