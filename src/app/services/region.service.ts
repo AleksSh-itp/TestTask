@@ -26,10 +26,6 @@ export class RegionService {
     return this._regions
   }
 
-  public getRegionById(id: number): Region {
-    return this._regions.find(region => region.id === id);
-  }
-
   public getRegionsByFederalDistrictId(federalDistrictId: number): Region[] {
     return this._regions
       .filter(region => region.federalDistrictId === federalDistrictId)

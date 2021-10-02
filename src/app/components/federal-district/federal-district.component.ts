@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FederalDistrictTransfer } from 'src/app/models/types/federal-district-transfer.type';
-import { FederalDistrictService } from 'src/app/services/federal-district.service';
-import { RegionService } from 'src/app/services/region.service';
+import { FederalDistrictTransferService } from 'src/app/services/federal-district-transfer.service';
+import { RegionTransferService } from 'src/app/services/region-transfer.service';
 
 @Component({
   selector: 'app-federal-district',
@@ -16,37 +16,39 @@ export class FederalDistrictComponent implements OnInit {
   }
 
   constructor(
-    private _federalDistrictService: FederalDistrictService,
-    private _regionService: RegionService
+    private _federalDistrictTransferService: FederalDistrictTransferService,
+    private _regionTransferService: RegionTransferService
   ) { }
 
   public ngOnInit(): void {
-    this._federalDistrictsTransfer = this._federalDistrictService
-      .getAllFederalDistrics()
-      .map(district => ({
-        ...district,
-        region: null,
-        toggled: false,
-        checked: false
-      }));
+    this._federalDistrictsTransfer = this._federalDistrictTransferService.getAllFederalDistrics()
   }
 
-  public loadRegion(districtId: number): void {
-    const district = this._federalDistrictsTransfer.find(district => district.id === districtId);
-
+  public loadRegion(district: FederalDistrictTransfer): void {
     if (district.regions == null) {
-      district.regions = this._regionService.getRegionsByFederalDistrictId(districtId)
+      district.regions = this._regionTransferService.getRegionsByFederalDistrictId(district.id)
     }
   }
 
-  public expand(districtId: number): void {
-    const district = this._federalDistrictsTransfer
-      .find(district => district.id === districtId);
+  public expand(district: FederalDistrictTransfer): void {
     district.toggled = !district.toggled;
   }
 
-  public getToggleState(districtId: number): boolean {
-    return this._federalDistrictsTransfer
-      .find(district => district.id === districtId)?.toggled;
+  public checked(district: FederalDistrictTransfer): void {
+    district.checked = !district.checked;
+    this.checkedChildren(district);
+  }
+
+  public checkedChildren(parrent: FederalDistrictTransfer): void {
+    parrent.regions?.map(region => {
+      if (region != null) {
+        region.checked = parrent.checked;
+      }
+      return region;
+    });
+  }
+
+  public deselected(node: FederalDistrictTransfer, state: boolean): void {
+    node.checked = state;
   }
 }

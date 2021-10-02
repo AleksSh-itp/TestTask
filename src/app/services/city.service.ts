@@ -23,10 +23,6 @@ export class CityService {
     return this._cities;
   }
 
-  public getCityById(id: number): City {
-    return this._cities.find(city => city.id === id);
-  }
-
   public getAllCitiesByRegionId(regionId: number): City[] {
     return this._cities
       .filter(city => city.regionId === regionId);

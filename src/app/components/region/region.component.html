@@ -1,14 +1,20 @@
 <ng-container *ngFor="let region of regions">
-    <div class="item">
-        <button (click)="loadCities(region.id); expand(region.id)">
-            +
-        </button>
-        <input type="checkbox" />
-        <span>{{ region.name }}</span>
+  <div class="item">
+    <button (click)="loadCities(region); checkedChildren(region); expand(region)">
+      +
+    </button>
+    <input 
+      type="checkbox" 
+      [checked]="region.checked" 
+      (change)="checked(region); onDeselect(region.checked)"/>
+    <span>{{ region.name }}</span>
 
-        <ng-container *ngIf="region.cities && getToggleState(region.id)">
-            <app-city [items]="region.cities">
-            </app-city>
-          </ng-container>
-    </div>
+    <ng-container *ngIf="region.cities && region.toggled">
+      <app-city 
+        [cities]="region.cities" 
+        [parrentChecked]="region.checked"
+        (deselect)="deselected(region, $event)">
+      </app-city>
+    </ng-container>
+  </div>
 </ng-container>

@@ -1,53 +1,66 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Region } from 'src/app/models/interfaces/region.model';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { RegionTransfer } from 'src/app/models/types/region-transfer.type';
-import { CityService } from 'src/app/services/city.service';
+import { CityTransferService } from 'src/app/services/city-transfer.service';
 
 @Component({
   selector: 'app-region',
   templateUrl: './region.component.html',
   styleUrls: ['./region.component.scss']
 })
-export class RegionComponent implements OnInit {
-  @Input() items: Region[];
+export class RegionComponent implements OnChanges {
+  @Input() regions: RegionTransfer[];
+  @Input() parrentChecked: boolean;
 
-  private _regionsTransfer: RegionTransfer[];
-
-  get regions(): RegionTransfer[] {
-    return this._regionsTransfer;
-  }
+  @Output() deselect = new EventEmitter<boolean>();
 
   constructor(
-    private _cityService: CityService
+    private _cityTransferService: CityTransferService
   ) { }
 
-  public ngOnInit(): void {
-    this._regionsTransfer = this.items
-      .map(region => ({
-        ...region,
-        cities: null,
-        toggled: false,
-        checked: false
-      }));
+  public ngOnChanges(): void {
+    this.regions.forEach(region => {
+      this.checkedChildren(region);
+    });    
   }
 
-  public loadCities(regionId: number): void {
-    const region = this._regionsTransfer.find(region => region.id === regionId);
-
+  public loadCities(region: RegionTransfer): void {
     if (region.cities == null) {
-      region.cities = this._cityService.getAllCitiesByRegionId(regionId);
+      region.cities = this._cityTransferService.getAllCitiesByRegionId(region.id);
     }
   }
 
-  public expand(regionId: number): void {
-    const region = this._regionsTransfer
-      .find(region => region.id === regionId);
+  public expand(region: RegionTransfer): void {
     region.toggled = !region.toggled;
   }
 
-  public getToggleState(regionId: number): boolean {
-    return this._regionsTransfer
-      .find(region => region.id === regionId).toggled;
+  public checked(region: RegionTransfer): void {
+    region.checked = !region.checked;
+    this.checkedChildren(region);
   }
 
+  public checkedChildren(parrent: RegionTransfer): void {
+    parrent.cities?.map(city => {
+      if (city != null && city.checked === false) {
+        city.checked = parrent.checked;
+      }
+      return city;
+    });
+  }
+
+  public deselected(node: RegionTransfer, state: boolean): void {
+    node.checked = state;
+    this.onDeselect(state);
+  }
+
+  public onDeselect(checked: boolean): void {
+    if (checked === false) {
+      this.deselect.emit(false);
+      return;
+    }
+
+    const uncheckedItem = this.regions.find(region => region.checked === false);
+    if (!uncheckedItem) {
+      this.deselect.emit(true);
+    }
+  }
 }

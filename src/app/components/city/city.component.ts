@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { City } from 'src/app/models/interfaces/city.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CityTransfer } from 'src/app/models/types/city-transfer.type';
 
 @Component({
@@ -7,17 +6,25 @@ import { CityTransfer } from 'src/app/models/types/city-transfer.type';
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.scss']
 })
-export class CityComponent implements OnInit {
-  @Input() items: City[];
+export class CityComponent {
+  @Input() cities: CityTransfer[];
+  @Input() parrentChecked: boolean;
 
-  private _cities: CityTransfer[];
+  @Output() deselect = new EventEmitter<boolean>();
 
-  get cities(): CityTransfer[] {
-    return this._cities;
+  public checked(city: CityTransfer): void {
+    city.checked = !city.checked;
   }
 
-  public ngOnInit(): void {
-    this._cities = this.items
-      .map(city => ({...city, checked: false}));
+  public onDeselect(checked: boolean): void {
+    if (checked === false) {
+      this.deselect.emit(false);
+      return;
+    }
+
+    const uncheckedItem = this.cities.find(city => city.checked === false);
+    if (!uncheckedItem) {
+      this.deselect.emit(true);
+    }
   }
 }
