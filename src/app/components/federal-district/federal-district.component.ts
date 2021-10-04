@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { addItemToForm } from 'src/app/helpers/add-item-to-form.helper';
 import { FederalDistrictTransfer } from 'src/app/models/types/federal-district-transfer.type';
 import { FederalDistrictTransferService } from 'src/app/services/federal-district-transfer.service';
 import { RegionTransferService } from 'src/app/services/region-transfer.service';
@@ -11,8 +12,10 @@ import { RegionTransferService } from 'src/app/services/region-transfer.service'
 })
 export class FederalDistrictComponent implements OnInit {
   @Input() formGroup: FormGroup;
+  @Input() controlName: string;
 
   private _federalDistrictsTransfer: FederalDistrictTransfer[];
+  private _formControl: FormControl;
 
   get federalDistricts(): FederalDistrictTransfer[] {
     return this._federalDistrictsTransfer;
@@ -24,6 +27,7 @@ export class FederalDistrictComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    this._formControl = this.formGroup.get(this.controlName) as FormControl;
     this._federalDistrictsTransfer = this._federalDistrictTransferService.getAllFederalDistrics()
   }
 
@@ -33,25 +37,31 @@ export class FederalDistrictComponent implements OnInit {
     }
   }
 
-  public expand(district: FederalDistrictTransfer): void {
+  public toggle(district: FederalDistrictTransfer): void {
     district.toggled = !district.toggled;
   }
 
   public checked(district: FederalDistrictTransfer): void {
     district.checked = !district.checked;
+    this.addFederalDistrictToForm(district);
     this.checkedChildren(district);
   }
 
   public checkedChildren(parrent: FederalDistrictTransfer): void {
     parrent.regions?.map(region => {
-      if (region != null) {
+      if (region != null && !region.checked) {
         region.checked = parrent.checked;
       }
       return region;
     });
   }
 
-  public deselected(node: FederalDistrictTransfer, state: boolean): void {
-    node.checked = state;
+  public deselected(district: FederalDistrictTransfer, state: boolean): void {
+    district.checked = state;
+    this.addFederalDistrictToForm(district);
+  }
+
+  private addFederalDistrictToForm(district: FederalDistrictTransfer): void {
+    addItemToForm(this._formControl, district);
   }
 }

@@ -1,6 +1,6 @@
 <ng-container *ngFor="let district of federalDistricts">
   <div class="item">
-    <button (click)="loadRegion(district); checkedChildren(district); expand(district)">
+    <button (click)="loadRegion(district); checkedChildren(district); toggle(district)">
       +
     </button>
     <input 
@@ -10,7 +10,9 @@
     <span>{{ district?.name }}</span>
 
     <ng-container *ngIf="district?.regions && district?.toggled">
-      <app-region 
+      <app-region
+        [formGroup]="formGroup"
+        [controlName]="'regions'" 
         [regions]="district?.regions"
         [parrentChecked]="district?.checked"
         (deselect)="deselected(district, $event)">
