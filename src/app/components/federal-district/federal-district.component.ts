@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { FederalDistrictTransfer } from 'src/app/models/types/federal-district-transfer.type';
 import { FederalDistrictTransferService } from 'src/app/services/federal-district-transfer.service';
 import { RegionTransferService } from 'src/app/services/region-transfer.service';
@@ -9,6 +10,8 @@ import { RegionTransferService } from 'src/app/services/region-transfer.service'
   styleUrls: ['./federal-district.component.scss']
 })
 export class FederalDistrictComponent implements OnInit {
+  @Input() formGroup: FormGroup;
+
   private _federalDistrictsTransfer: FederalDistrictTransfer[];
 
   get federalDistricts(): FederalDistrictTransfer[] {

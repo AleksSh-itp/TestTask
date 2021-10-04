@@ -13,12 +13,15 @@ export class ListComponent implements OnInit {
     private _formBuilder: FormBuilder,
   ) {
     this.formGroup = this._formBuilder.group({
-      federalDistrict: [" "],
-      region: [" "],
-      city: [" "]
+      federalDistricts: this._formBuilder.group({
+        regions: this._formBuilder.group({
+          cities: [null]
+        })
+      })
     })
   }
 
   public ngOnInit(): void {
+    console.log(this.formGroup);
   }
 }

@@ -2,8 +2,8 @@
   <div class="item">
     <input 
         type="checkbox" 
-        [checked]="city.checked" 
-        (change)="checked(city); onDeselect(city.checked)"/>
-    <span>{{ city.name }}</span>
+        [checked]="city?.checked" 
+        (change)="checked(city); onDeselect(city?.checked)"/>
+    <span>{{ city?.name }}</span>
   </div>
 </ng-container>

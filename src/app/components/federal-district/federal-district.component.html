@@ -5,14 +5,14 @@
     </button>
     <input 
       type="checkbox"
-      [checked]="district.checked" 
+      [checked]="district?.checked" 
       (change)="checked(district);"/>
-    <span>{{ district.name }}</span>
+    <span>{{ district?.name }}</span>
 
-    <ng-container *ngIf="district.regions && district.toggled">
+    <ng-container *ngIf="district?.regions && district?.toggled">
       <app-region 
-        [regions]="district.regions"
-        [parrentChecked]="district.checked"
+        [regions]="district?.regions"
+        [parrentChecked]="district?.checked"
         (deselect)="deselected(district, $event)">
       </app-region>
     </ng-container>
