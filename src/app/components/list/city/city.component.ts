@@ -12,7 +12,7 @@ import { CityTransfer } from 'src/app/models/types/city-transfer.type';
 export class CityComponent implements OnInit, OnChanges {
   @Input() formGroup: FormGroup;
   @Input() cities: CityTransfer[];
-  @Input() controlName: string;
+  @Input() cityControlName: string;
   @Input() parrentChecked: boolean;
 
   @Output() deselect = new EventEmitter<boolean>();
@@ -20,7 +20,7 @@ export class CityComponent implements OnInit, OnChanges {
   private _formControl: FormControl;
 
   public ngOnInit(): void {
-    this._formControl = this.formGroup.get(this.controlName) as FormControl;
+    this._formControl = this.formGroup.get(this.cityControlName) as FormControl;
   }
 
   public ngOnChanges(): void {

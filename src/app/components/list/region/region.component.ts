@@ -13,7 +13,8 @@ import { CityTransferService } from 'src/app/services/city-transfer.service';
 export class RegionComponent implements OnInit, OnChanges {
   @Input() formGroup: FormGroup;
   @Input() regions: RegionTransfer[];
-  @Input() controlName: string;
+  @Input() regionControlName: string;
+  @Input() cityControlName: string;
   @Input() parrentChecked: boolean;
 
   @Output() deselect = new EventEmitter<boolean>();
@@ -25,7 +26,7 @@ export class RegionComponent implements OnInit, OnChanges {
   ) { }
 
   public ngOnInit(): void {
-    this._formControl = this.formGroup.get(this.controlName) as FormControl;
+    this._formControl = this.formGroup.get(this.regionControlName) as FormControl;
   }
 
   public ngOnChanges(): void {

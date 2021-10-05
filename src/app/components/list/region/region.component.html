@@ -1,6 +1,8 @@
 <ng-container *ngFor="let region of regions">
   <div class="item">
-    <button (click)="loadCities(region); checkedChildren(region); toggle(region)">
+    <button
+      *ngIf="cityControlName" 
+      (click)="loadCities(region); checkedChildren(region); toggle(region)">
       +
     </button>
     <input 
@@ -12,7 +14,7 @@
     <ng-container *ngIf="region?.cities && region?.toggled">
       <app-city 
         [formGroup]="formGroup"
-        [controlName]="'cities'"      
+        [cityControlName]="cityControlName"      
         [cities]="region?.cities" 
         [parrentChecked]="region?.checked"
         (deselect)="deselected(region, $event)">

@@ -12,7 +12,9 @@ import { RegionTransferService } from 'src/app/services/region-transfer.service'
 })
 export class FederalDistrictComponent implements OnInit {
   @Input() formGroup: FormGroup;
-  @Input() controlName: string;
+  @Input() federalDistrictControlName: string;
+  @Input() regionControlName: string;
+  @Input() cityControlName: string;
 
   private _federalDistrictsTransfer: FederalDistrictTransfer[];
   private _formControl: FormControl;
@@ -27,7 +29,7 @@ export class FederalDistrictComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this._formControl = this.formGroup.get(this.controlName) as FormControl;
+    this._formControl = this.formGroup.get(this.federalDistrictControlName) as FormControl;
     this._federalDistrictsTransfer = this._federalDistrictTransferService.getAllFederalDistrics()
   }
 

@@ -1,33 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
-  public formGroup: FormGroup;
+export class ListComponent {
+  @Input() formGroup: FormGroup;
+  @Input() federalDistrictControlName: string;
+  @Input() regionControlName: string;
+  @Input() cityControlName: string;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-  ) {
-    this.formGroup = this._formBuilder.group({
-      federalDistricts: [[]],
-      regions: [[]],
-      cities: [[]]
-    });
-  }
-
-  public ngOnInit(): void {
-    this.formGroup.valueChanges
-      .subscribe(data => {
-        console.clear();
-        console.log(
-          `Federal districts: ${data.federalDistricts} 
-          \nRegions: ${data.regions} 
-          \nCities: ${data.cities}`
-        );
-      });
+  public validateControl(controlName: string): string {
+    const existingControl = this.formGroup.get(controlName);
+    if (existingControl) {
+      return controlName;
+    } else {
+      return undefined;
+    }
   }
 }

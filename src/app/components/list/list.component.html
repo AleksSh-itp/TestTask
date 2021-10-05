@@ -1,4 +1,7 @@
 <app-federal-district
+    *ngIf="validateControl(federalDistrictControlName)"
     [formGroup]="formGroup"
-    [controlName]="'federalDistricts'">
+    [federalDistrictControlName]="validateControl(federalDistrictControlName)"
+    [regionControlName]="validateControl(regionControlName)"
+    [cityControlName]="validateControl(cityControlName)">
 </app-federal-district>
